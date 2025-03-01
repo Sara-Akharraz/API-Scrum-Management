@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface ProjectService {
     public void addProject(Project project);
-    public Optional<Project> getProject(Long id);
+    public Project getProject(Long id);
     public Optional<Project> getProjectByProductBackLog(Long id);
 
 }

@@ -21,8 +21,10 @@ public class ProjectServiceImpl implements ProjectService {
         projectRepository.save(project);
     }
 
-    public Optional<Project> getProject(Long id) {
-        return  (Optional<Project>) projectRepository.findById(id);
+    public Project getProject(Long id) {
+        Project project = projectRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Project not found with id: " + id));
+        return project;
     }
 
     @Override
