@@ -22,5 +22,4 @@ public class ProductBackLog {
     @ManyToOne
     @JoinColumn(name = "project", nullable = false)  // Use the appropriate column name
     private Project project;
-
 }

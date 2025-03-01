@@ -11,6 +11,4 @@ import java.util.Optional;
 public interface ProjectRepository extends JpaRepository<Project, Long> {
     @Query("SELECT p FROM Project p WHERE p.productBackLog.id = :id")
     Optional<Project> getProjectByProductBackLog(@Param("id") Long id);
-    Project getProjectById(Long id);
-    
 }

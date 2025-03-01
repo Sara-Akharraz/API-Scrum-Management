@@ -27,7 +27,6 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Optional<Project> getProjectByProductBackLog(Long id) {
-
         return projectRepository.getProjectByProductBackLog(id);
     }
 }
