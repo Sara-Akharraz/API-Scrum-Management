@@ -9,7 +9,6 @@ import java.util.List;
 @Entity
 @Table(name="product_backlog")
 public class ProductBackLog {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

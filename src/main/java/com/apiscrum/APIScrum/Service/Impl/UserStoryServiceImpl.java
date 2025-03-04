@@ -12,6 +12,11 @@ public class UserStoryServiceImpl implements UserStoryService {
     UserStoryRepository userStoryRepository;
 
     @Override
+    public void createUserStory(UserStory userStory) {
+        userStoryRepository.save(userStory);
+    }
+
+    @Override
     public void deleteUserStory(Long id) {
         userStoryRepository.deleteById(id);
     }
@@ -20,4 +25,5 @@ public class UserStoryServiceImpl implements UserStoryService {
     public UserStory getUserStory(Long id) {
         return userStoryRepository.findById(id).get();
     }
+
 }
