@@ -8,6 +8,8 @@ import com.apiscrum.APIScrum.Service.EpicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EpicServiceImpl implements EpicService {
 
@@ -24,9 +26,11 @@ public class EpicServiceImpl implements EpicService {
     }
 
     @Override
-    public void addUserStrotyToEpic(Long id_e, UserStory userStory) {
+    public void addUserStoryToEpic(Long id_e, UserStory userStory) {
         Epic epic = epicRepository.findById(id_e)
                 .orElseThrow(() -> new RuntimeException("Epic not found with id: " + id_e));
         epic.getUserStories().add(userStory);
     }
+
+
 }

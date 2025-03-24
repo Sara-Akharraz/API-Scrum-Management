@@ -1,8 +1,14 @@
 package com.apiscrum.APIScrum.Entity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name="project")
 public class Project {
@@ -15,5 +21,6 @@ public class Project {
     private String description;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_backLog", nullable = true)
-   private ProductBackLog productBackLog;
+    private ProductBackLog productBackLog;
+
 }

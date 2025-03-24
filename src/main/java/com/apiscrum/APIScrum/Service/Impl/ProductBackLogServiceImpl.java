@@ -3,7 +3,6 @@ package com.apiscrum.APIScrum.Service.Impl;
 import com.apiscrum.APIScrum.Entity.Epic;
 import com.apiscrum.APIScrum.Entity.ProductBackLog;
 import com.apiscrum.APIScrum.Entity.UserStory;
-import com.apiscrum.APIScrum.Entity.UserStory;
 import com.apiscrum.APIScrum.Repository.EpicRepository;
 import com.apiscrum.APIScrum.Repository.ProductBackLogRepository;
 import com.apiscrum.APIScrum.Repository.UserStoryRepository;

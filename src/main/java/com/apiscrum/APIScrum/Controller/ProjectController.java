@@ -16,7 +16,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/project")
 public class ProjectController {
-    private final ProjectService projectService;
+    private  ProjectService projectService;
 
     @PostMapping
     public void createProject(@RequestBody Project project) {
