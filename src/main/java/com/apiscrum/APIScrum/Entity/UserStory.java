@@ -1,10 +1,19 @@
 package com.apiscrum.APIScrum.Entity;
 
 import com.apiscrum.APIScrum.enums.UserStoryPriority;
+import com.apiscrum.APIScrum.enums.UserStoryProgress;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name="user_story")
 public class UserStory {
@@ -28,4 +37,16 @@ public class UserStory {
     @ManyToOne
     @JoinColumn(name="epic", nullable = true)
     private Epic epic;
+    @ManyToOne
+    @JoinColumn(name="sprintBackLog",nullable = true)
+    private SprintBackLog sprintBackLog;
+
+    @OneToMany(mappedBy = "task_id")
+    private List<Task> tasks;
+
+    @OneToMany(mappedBy = "test_acceptance_id")
+    private List<Test_Acceptance> test_acceptanceList;
+    @Column(name="testing_progress")
+    private UserStoryProgress progress;
+
 }
