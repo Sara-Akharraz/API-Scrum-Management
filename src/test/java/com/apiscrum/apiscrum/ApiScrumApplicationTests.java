@@ -1,4 +1,4 @@
-package com.apiscrum.APIScrum;
+package com.apiscrum.apiscrum;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

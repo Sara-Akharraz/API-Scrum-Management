@@ -1,4 +1,4 @@
-package com.apiscrum.APIScrum;
+package com.apiscrum.apiscrum;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import org.springframework.boot.SpringApplication;
