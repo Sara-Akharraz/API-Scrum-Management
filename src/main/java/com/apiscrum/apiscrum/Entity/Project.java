@@ -1,9 +1,11 @@
-package com.apiscrum.APIScrum.Entity;
+package com.apiscrum.apiscrum.Entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -22,5 +24,7 @@ public class Project {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_backLog", nullable = true)
     private ProductBackLog productBackLog;
+    @OneToMany(mappedBy = "associatedProject")
+    private List<Sprint> sprints;
 
 }

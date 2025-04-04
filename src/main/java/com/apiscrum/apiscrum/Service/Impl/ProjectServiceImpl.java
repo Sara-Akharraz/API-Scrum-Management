@@ -1,12 +1,9 @@
-package com.apiscrum.APIScrum.Service.Impl;
+package com.apiscrum.apiscrum.Service.Impl;
 
-import com.apiscrum.APIScrum.Entity.ProductBackLog;
-import com.apiscrum.APIScrum.Entity.Project;
-import com.apiscrum.APIScrum.Repository.ProjectRepository;
-import com.apiscrum.APIScrum.Service.ProjectService;
+import com.apiscrum.apiscrum.Entity.Project;
+import com.apiscrum.apiscrum.Repository.ProjectRepository;
+import com.apiscrum.apiscrum.Service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

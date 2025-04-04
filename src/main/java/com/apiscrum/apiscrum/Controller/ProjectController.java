@@ -1,15 +1,11 @@
-package com.apiscrum.APIScrum.Controller;
+package com.apiscrum.apiscrum.Controller;
 
 
-import com.apiscrum.APIScrum.Entity.Project;
-import com.apiscrum.APIScrum.Service.ProjectService;
+import com.apiscrum.apiscrum.Entity.Project;
+import com.apiscrum.apiscrum.Service.ProjectService;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.Response;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @CrossOrigin("*")
 @AllArgsConstructor
