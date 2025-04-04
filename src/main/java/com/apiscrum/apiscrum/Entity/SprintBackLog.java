@@ -1,4 +1,4 @@
-package com.apiscrum.APIScrum.Entity;
+package com.apiscrum.apiscrum.Entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 @Data
 @NoArgsConstructor
@@ -20,11 +21,11 @@ public class SprintBackLog {
     private Long id;
 
 
-    @OneToMany(mappedBy = "sprintBacklog_id")
-    private List<UserStory> userStoriesList;
+    @OneToMany(mappedBy = "sprintBackLog")
+    private List<UserStory> userStoriesList = new ArrayList<>();
 
     @OneToOne
-    @JoinColumn(name = "associated_sprint_id", nullable = false)
+    @JoinColumn(name = "associated_sprint_id",referencedColumnName = "id",nullable = false)
     private Sprint associatedSprint;
 
 

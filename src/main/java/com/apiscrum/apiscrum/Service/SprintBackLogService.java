@@ -1,10 +1,9 @@
-package com.apiscrum.APIScrum.Service;
+package com.apiscrum.apiscrum.Service;
 
-import com.apiscrum.APIScrum.Entity.SprintBackLog;
-import com.apiscrum.APIScrum.Entity.Task;
-import com.apiscrum.APIScrum.Entity.Test_Acceptance;
-import com.apiscrum.APIScrum.Entity.UserStory;
-import com.apiscrum.APIScrum.enums.TaskProgress;
+import com.apiscrum.apiscrum.Entity.SprintBackLog;
+import com.apiscrum.apiscrum.Entity.Task;
+import com.apiscrum.apiscrum.Entity.TestAcceptance;
+import com.apiscrum.apiscrum.Entity.UserStory;
 
 import java.util.List;
 
@@ -17,8 +16,8 @@ public interface SprintBackLogService {
     public List<Task> getInProgressTasks(Long SprintBackLog_id);
     public List<Task> getBlockedTasks(Long SprintBackLog_id);
     public List<Task> getDoneTasks(Long SprintBackLog_id);
-    public List<Test_Acceptance> getPassedTests(Long SprintBackLog_id);
-    public List<Test_Acceptance> getPendingTests(Long SprintBackLog_id);
-    public List<Test_Acceptance> getFailedTests(Long SprintBackLog_id);
-
+    public List<TestAcceptance> getPassedTests(Long SprintBackLog_id);
+    public List<TestAcceptance> getPendingTests(Long SprintBackLog_id);
+    public List<TestAcceptance> getFailedTests(Long SprintBackLog_id);
+    public SprintBackLog getSprintBackLogById(Long id);
 }

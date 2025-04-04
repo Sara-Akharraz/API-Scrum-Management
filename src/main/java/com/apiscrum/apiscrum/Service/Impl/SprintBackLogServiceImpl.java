@@ -1,9 +1,8 @@
-package com.apiscrum.APIScrum.Service.Impl;
+package com.apiscrum.apiscrum.Service.Impl;
 
-import com.apiscrum.APIScrum.Entity.*;
-import com.apiscrum.APIScrum.Repository.SprintBackLogRepository;
-import com.apiscrum.APIScrum.Service.SprintBackLogService;
-import com.apiscrum.APIScrum.enums.TaskProgress;
+import com.apiscrum.apiscrum.Entity.*;
+import com.apiscrum.apiscrum.Repository.SprintBackLogRepository;
+import com.apiscrum.apiscrum.Service.SprintBackLogService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +17,20 @@ public class SprintBackLogServiceImpl implements SprintBackLogService {
     public SprintBackLogServiceImpl(SprintBackLogRepository sprintBackLogRepository){
         this.sprintBackLogRepository=sprintBackLogRepository;
     }
-
+    @Override
+    public SprintBackLog getSprintBackLogById(Long id) {
+        return sprintBackLogRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("SprintBackLog not found for id: " + id));
+    }
     @Override
     public SprintBackLog addSprintBackLog(SprintBackLog sprintBackLog) {
+
+        if (sprintBackLog.getUserStoriesList() != null) {
+            for (UserStory us : sprintBackLog.getUserStoriesList()) {
+                us.setSprintBackLog(sprintBackLog);
+            }
+        }
+
         return sprintBackLogRepository.save(sprintBackLog);
 
     }
@@ -42,12 +52,16 @@ public class SprintBackLogServiceImpl implements SprintBackLogService {
 
     @Override
     public void deleteSprintBackLog(Long id) {
-        if(sprintBackLogRepository.existsById(id)){
-            sprintBackLogRepository.deleteById(id);
-        }else {
-            throw new EntityNotFoundException("SprintBackLog not found for id :" +id);
+        SprintBackLog sprintBackLog = sprintBackLogRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("SprintBackLog not found for id :" + id));
+        for (UserStory userStory : sprintBackLog.getUserStoriesList()) {
+            userStory.setSprintBackLog(null);
         }
 
+        sprintBackLog.getUserStoriesList().clear();
+        sprintBackLogRepository.save(sprintBackLog);
+
+        sprintBackLogRepository.deleteById(id);
 
     }
 
@@ -71,17 +85,17 @@ public class SprintBackLogServiceImpl implements SprintBackLogService {
     }
 
     @Override
-    public List<Test_Acceptance> getPassedTests(Long SprintBackLog_id) {
+    public List<TestAcceptance> getPassedTests(Long SprintBackLog_id) {
         return sprintBackLogRepository.findPassedTestBySprintBackLogId(SprintBackLog_id);
     }
 
     @Override
-    public List<Test_Acceptance> getPendingTests(Long SprintBackLog_id) {
+    public List<TestAcceptance> getPendingTests(Long SprintBackLog_id) {
         return sprintBackLogRepository.findPendingTestBySprintBackLogId(SprintBackLog_id);
     }
 
     @Override
-    public List<Test_Acceptance> getFailedTests(Long SprintBackLog_id) {
+    public List<TestAcceptance> getFailedTests(Long SprintBackLog_id) {
         return sprintBackLogRepository.findFailedTestBySprintBackLogId(SprintBackLog_id);
     }
 }
