@@ -1,17 +1,19 @@
-package com.apiscrum.APIScrum.Mapper;
+package com.apiscrum.apiscrum.Mapper;
 
-import com.apiscrum.APIScrum.DTO.Test_AcceptanceDTO;
-import com.apiscrum.APIScrum.Entity.Test_Acceptance;
-import com.apiscrum.APIScrum.Entity.UserStory;
-import com.apiscrum.APIScrum.Repository.UserStoryRepository;
+import com.apiscrum.apiscrum.DTO.TestAcceptanceDTO;
+import com.apiscrum.apiscrum.Entity.TestAcceptance;
+import com.apiscrum.apiscrum.Entity.UserStory;
+import com.apiscrum.apiscrum.Repository.UserStoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class Test_AcceptanceMapper {
+@Component
+public class TestAcceptanceMapper {
     @Autowired
     private UserStoryRepository userStoryRepository;
 
-    public Test_AcceptanceDTO toDTO(Test_Acceptance test){
-        return new Test_AcceptanceDTO(
+    public TestAcceptanceDTO toDTO(TestAcceptance test){
+        return new TestAcceptanceDTO(
                 test.getId(),
                 test.getScenario(),
                 test.getGiven(),
@@ -23,9 +25,9 @@ public class Test_AcceptanceMapper {
                 test.getAssociatedUserStory().getId()
             );
     }
-    public Test_Acceptance toEntity(Test_AcceptanceDTO testDTO){
+    public TestAcceptance toEntity(TestAcceptanceDTO testDTO){
         UserStory userStory=userStoryRepository.findById(testDTO.getAssociatedUserStory()).orElseThrow(()-> new RuntimeException("User Story not found"));
-        return new Test_Acceptance(
+        return new TestAcceptance(
                 testDTO.getId(),
                 testDTO.getScenario(),
                 testDTO.getGiven(),

@@ -1,38 +1,38 @@
-package com.apiscrum.APIScrum.Service.Impl;
+package com.apiscrum.apiscrum.Service.Impl;
 
-import com.apiscrum.APIScrum.Entity.Test_Acceptance;
-import com.apiscrum.APIScrum.Repository.Test_AcceptanceRepository;
-import com.apiscrum.APIScrum.Service.Test_AcceptanceService;
-import com.apiscrum.APIScrum.enums.Test_AcceptanceState;
+import com.apiscrum.apiscrum.Entity.TestAcceptance;
+import com.apiscrum.apiscrum.Repository.TestAcceptanceRepository;
+import com.apiscrum.apiscrum.Service.TestAcceptanceService;
+import com.apiscrum.apiscrum.enums.TestAcceptanceState;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class Test_AcceptanceServiceImpl implements Test_AcceptanceService {
-    private Test_AcceptanceRepository testAcceptanceRepository;
-    public Test_AcceptanceServiceImpl(Test_AcceptanceRepository testAcceptanceRepository){
+public class TestAcceptanceServiceImpl implements TestAcceptanceService {
+    private TestAcceptanceRepository testAcceptanceRepository;
+    public TestAcceptanceServiceImpl(TestAcceptanceRepository testAcceptanceRepository){
         this.testAcceptanceRepository=testAcceptanceRepository;
     }
     @Override
-    public Test_Acceptance addTest(Test_Acceptance test) {
+    public TestAcceptance addTest(TestAcceptance test) {
         return testAcceptanceRepository.save(test);
     }
 
     @Override
-    public Test_Acceptance updateTest(Long id, Test_Acceptance updatedTestAcceptance) {
-       Optional<Test_Acceptance> prevTest=testAcceptanceRepository.findById(id);
+    public TestAcceptance updateTest(Long id, TestAcceptance updatedTestAcceptance) {
+       Optional<TestAcceptance> prevTest=testAcceptanceRepository.findById(id);
        if(prevTest.isPresent()){
-           Test_Acceptance test=prevTest.get();
+           TestAcceptance test=prevTest.get();
            test.setScenario(updatedTestAcceptance.getScenario());
            test.setGiven(updatedTestAcceptance.getGiven());
            test.setWhen(updatedTestAcceptance.getWhen());
            test.setThen(updatedTestAcceptance.getThen());
            test.setAnd(updatedTestAcceptance.getAnd());
            test.setBut(updatedTestAcceptance.getBut());
+           test.setState(updatedTestAcceptance.getState());
            test.setAssociatedUserStory(updatedTestAcceptance.getAssociatedUserStory());
            return testAcceptanceRepository.save(test);
 
@@ -53,10 +53,10 @@ public class Test_AcceptanceServiceImpl implements Test_AcceptanceService {
 
     }
     @Override
-    public Test_Acceptance updateTestState(Long id, Test_AcceptanceState state) {
-        Optional<Test_Acceptance> prevTest=testAcceptanceRepository.findById(id);
+    public TestAcceptance updateTestState(Long id, TestAcceptanceState state) {
+        Optional<TestAcceptance> prevTest=testAcceptanceRepository.findById(id);
         if(prevTest.isPresent()){
-            Test_Acceptance test=prevTest.get();
+            TestAcceptance test=prevTest.get();
             test.setState(state);
             return testAcceptanceRepository.save(test);
         }
@@ -65,12 +65,12 @@ public class Test_AcceptanceServiceImpl implements Test_AcceptanceService {
         }
     }
     @Override
-    public Test_Acceptance getTestById(Long id) {
+    public TestAcceptance getTestById(Long id) {
         return testAcceptanceRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Acceptance Test Not found for id :"+id));
     }
 
     @Override
-    public List<Test_Acceptance> getAllTests() {
+    public List<TestAcceptance> getAllTests() {
         return testAcceptanceRepository.findAll();
     }
 }
