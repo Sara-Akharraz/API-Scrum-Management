@@ -1,6 +1,6 @@
-package com.apiscrum.APIScrum.Repository;
+package com.apiscrum.apiscrum.Repository;
 
-import com.apiscrum.APIScrum.Entity.Epic;
+import com.apiscrum.apiscrum.Entity.Epic;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

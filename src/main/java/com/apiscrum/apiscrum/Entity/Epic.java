@@ -1,4 +1,4 @@
-package com.apiscrum.APIScrum.Entity;
+package com.apiscrum.apiscrum.Entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

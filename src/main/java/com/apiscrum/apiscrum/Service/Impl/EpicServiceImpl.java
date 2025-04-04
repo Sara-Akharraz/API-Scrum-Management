@@ -1,14 +1,12 @@
-package com.apiscrum.APIScrum.Service.Impl;
+package com.apiscrum.apiscrum.Service.Impl;
 
-import com.apiscrum.APIScrum.Entity.Epic;
-import com.apiscrum.APIScrum.Entity.ProductBackLog;
-import com.apiscrum.APIScrum.Entity.UserStory;
-import com.apiscrum.APIScrum.Repository.EpicRepository;
-import com.apiscrum.APIScrum.Service.EpicService;
+import com.apiscrum.apiscrum.Entity.Epic;
+import com.apiscrum.apiscrum.Entity.ProductBackLog;
+import com.apiscrum.apiscrum.Entity.UserStory;
+import com.apiscrum.apiscrum.Repository.EpicRepository;
+import com.apiscrum.apiscrum.Service.EpicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class EpicServiceImpl implements EpicService {
