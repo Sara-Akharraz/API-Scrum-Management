@@ -1,7 +1,9 @@
-package com.apiscrum.APIScrum.Service.Impl;
+package com.apiscrum.apiscrum.Service.Impl;
 
-import com.apiscrum.APIScrum.Entity.Sprint;
-import com.apiscrum.APIScrum.Repository.SprintRepository;
+import com.apiscrum.apiscrum.Entity.Sprint;
+import com.apiscrum.apiscrum.Entity.SprintBackLog;
+import com.apiscrum.apiscrum.Repository.SprintBackLogRepository;
+import com.apiscrum.apiscrum.Repository.SprintRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,6 +23,8 @@ class SprintServiceImplTest {
 
     @Mock
     private SprintRepository sprintRepository;
+    @Mock
+    private SprintBackLogRepository sprintBackLogRepository;
 
     @InjectMocks
     private SprintServiceImpl sprintService;
@@ -66,13 +70,24 @@ class SprintServiceImplTest {
 
     @Test
     void deleteSprintTest() {
-        when(sprintRepository.existsById(sprint1.getId())).thenReturn(true);
-        doNothing().when(sprintRepository).deleteById(sprint1.getId());
+        SprintBackLog sprintBackLog = new SprintBackLog();
+        sprintBackLog.setId(1L);
 
-        sprintService.deleteSprint(sprint1.getId());
+        Sprint sprint = new Sprint();
+        sprint.setId(1L);
+        sprint.setSprintBackLog(sprintBackLog);
 
-        verify(sprintRepository, times(1)).existsById(sprint1.getId());
-        verify(sprintRepository, times(1)).deleteById(sprint1.getId());
+
+        when(sprintRepository.findById(1L)).thenReturn(Optional.of(sprint));
+        doNothing().when(sprintBackLogRepository).delete(sprintBackLog);
+        doNothing().when(sprintRepository).delete(sprint);
+
+
+        sprintService.deleteSprint(1L);
+
+        verify(sprintRepository, times(1)).findById(1L);
+        verify(sprintBackLogRepository, times(1)).delete(sprintBackLog);
+        verify(sprintRepository, times(1)).delete(sprint);
     }
 
     @Test
@@ -93,13 +108,13 @@ class SprintServiceImplTest {
         Long projectId = 100L;
         List<Sprint> expectedSprints = Arrays.asList(sprint1, sprint2);
 
-        when(sprintRepository.findByProjectId(projectId)).thenReturn(expectedSprints);
+        when(sprintRepository.findByAssociatedProjectId(projectId)).thenReturn(expectedSprints);
 
         List<Sprint> result = sprintService.getAllSprintsByProject(projectId);
 
         assertNotNull(result);
         assertEquals(2, result.size());
-        verify(sprintRepository, times(1)).findByProjectId(projectId);
+        verify(sprintRepository, times(1)).findByAssociatedProjectId(projectId);
     }
 
     @Test

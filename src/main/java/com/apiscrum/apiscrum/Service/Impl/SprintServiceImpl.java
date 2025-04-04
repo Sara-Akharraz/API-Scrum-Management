@@ -1,24 +1,28 @@
-package com.apiscrum.APIScrum.Service.Impl;
+package com.apiscrum.apiscrum.Service.Impl;
 
-import com.apiscrum.APIScrum.Entity.Sprint;
-import com.apiscrum.APIScrum.Repository.SprintRepository;
-import com.apiscrum.APIScrum.Service.SprintService;
+import com.apiscrum.apiscrum.Entity.Sprint;
+import com.apiscrum.apiscrum.Repository.SprintBackLogRepository;
+import com.apiscrum.apiscrum.Repository.SprintRepository;
+import com.apiscrum.apiscrum.Service.SprintService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class SprintServiceImpl implements SprintService {
 
-
+    @Autowired
     private SprintRepository sprintRepository;
+    @Autowired
+    private SprintBackLogRepository sprintBackLogRepository;
 
-    public SprintServiceImpl(SprintRepository sprintRepository){
+    public SprintServiceImpl(SprintRepository sprintRepository,SprintBackLogRepository sprintBackLogRepository){
         this.sprintRepository=sprintRepository;
+        this.sprintBackLogRepository=sprintBackLogRepository;
     }
 
     @Override
@@ -47,12 +51,12 @@ public class SprintServiceImpl implements SprintService {
     @Override
     @Transactional
     public void deleteSprint(Long id) {
-       if(sprintRepository.existsById(id)){
-           sprintRepository.deleteById(id);
-       }else{
-           throw new EntityNotFoundException("Sprint not found for id " +id);
-       }
-
+        Sprint sprint = sprintRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Sprint not found"));
+        if (sprint.getSprintBackLog() != null) {
+            sprintBackLogRepository.delete(sprint.getSprintBackLog());
+        }
+        sprintRepository.delete(sprint);
 
     }
 
@@ -65,7 +69,7 @@ public class SprintServiceImpl implements SprintService {
     @Override
     @Transactional
     public List<Sprint> getAllSprintsByProject(Long id_project) {
-        return sprintRepository.findByProjectId(id_project);
+        return sprintRepository.findByAssociatedProjectId(id_project);
     }
     @Override
     public Sprint getSprintById(Long id) {

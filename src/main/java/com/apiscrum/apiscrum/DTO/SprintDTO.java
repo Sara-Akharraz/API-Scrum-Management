@@ -1,11 +1,5 @@
-package com.apiscrum.APIScrum.DTO;
+package com.apiscrum.apiscrum.DTO;
 
-import com.apiscrum.APIScrum.Entity.Project;
-import com.apiscrum.APIScrum.Entity.SprintBackLog;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -26,9 +20,9 @@ public class SprintDTO {
     private String sprint_title;
     @NotBlank()
     private String duration;
-    @NotBlank()
+
     private Date start_date;
-    @NotBlank()
+
     private Date  end_date;
     @NotBlank()
     private String description;

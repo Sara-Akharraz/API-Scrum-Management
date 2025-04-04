@@ -1,10 +1,7 @@
-package com.apiscrum.APIScrum.Service;
+package com.apiscrum.apiscrum.Service;
 
-import com.apiscrum.APIScrum.Entity.Project;
-import com.apiscrum.APIScrum.Entity.Sprint;
-import com.apiscrum.APIScrum.Entity.SprintBackLog;
+import com.apiscrum.apiscrum.Entity.Sprint;
 
-import java.util.Date;
 import java.util.List;
 
 public interface SprintService {

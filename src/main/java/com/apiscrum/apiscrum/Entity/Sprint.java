@@ -1,4 +1,4 @@
-package com.apiscrum.APIScrum.Entity;
+package com.apiscrum.apiscrum.Entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,8 +27,7 @@ public class Sprint {
     private Date  end_date;
     @Column(name="description")
     private String description;
-    @OneToOne
-    @JoinColumn(name="associated_sprintBackLog_id",nullable=true)
+    @OneToOne(mappedBy = "associatedSprint",cascade = CascadeType.REMOVE, orphanRemoval = true)
     private SprintBackLog sprintBackLog;
     @ManyToOne
     @JoinColumn(name="associated_project_id",nullable=false)
