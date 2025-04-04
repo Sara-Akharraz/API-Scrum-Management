@@ -1,4 +1,4 @@
-package com.apiscrum.APIScrum.Controller;
+package com.apiscrum.apiscrum.Controller;
 
 public class ProductBackLogController {
 }
