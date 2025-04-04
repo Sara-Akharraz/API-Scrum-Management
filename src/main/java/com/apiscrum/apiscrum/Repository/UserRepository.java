@@ -1,10 +1,12 @@
-package com.apiscrum.APIScrum.Repository;
+package com.apiscrum.apiscrum.Repository;
 
-import com.apiscrum.APIScrum.Entity.User;
-import com.apiscrum.APIScrum.Entity.UserStory;
+import com.apiscrum.apiscrum.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+Optional<User> findByEmail(String email);
 }

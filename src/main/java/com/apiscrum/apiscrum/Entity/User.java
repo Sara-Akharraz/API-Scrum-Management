@@ -1,6 +1,6 @@
-package com.apiscrum.APIScrum.Entity;
+package com.apiscrum.apiscrum.Entity;
 
-import com.apiscrum.APIScrum.enums.Role;
+import com.apiscrum.apiscrum.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,20 +18,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="name")
+    @Column(name="name",nullable = false)
     private String name;
-    @Column(name="email")
-    private String Email;
-    @Column(name="passwd")
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
+    @Column(name="passwd",nullable = false)
     private String passwd;
 
-    @Enumerated
-    @Column(name="role")
+    @Enumerated(EnumType.STRING)
+    @Column(name="role",nullable = false)
     private Role role;
-
-
-
-
 
 
 }
