@@ -1,15 +1,13 @@
-package com.apiscrum.APIScrum.Service.Impl;
+package com.apiscrum.apiscrum.Service.Impl;
 
-import com.apiscrum.APIScrum.Entity.Task;
-import com.apiscrum.APIScrum.Entity.UserStory;
-import com.apiscrum.APIScrum.Repository.UserStoryRepository;
-import com.apiscrum.APIScrum.Service.UserStoryService;
-import com.apiscrum.APIScrum.enums.UserStoryProgress;
+import com.apiscrum.apiscrum.Entity.UserStory;
+import com.apiscrum.apiscrum.Repository.UserStoryRepository;
+import com.apiscrum.apiscrum.Service.UserStoryService;
+import com.apiscrum.apiscrum.enums.UserStoryProgress;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,7 +26,7 @@ public class UserStoryServiceImpl implements UserStoryService {
     }
 
     @Override
-    public UserStory updateUserStory(Long id, UserStoryProgress updatedprogress) {
+    public UserStory updateUserStoryProgress(Long id, UserStoryProgress updatedprogress) {
         Optional<UserStory> prevUser_Story=userStoryRepository.findById(id);
         if(prevUser_Story.isPresent()){
             UserStory userStory=prevUser_Story.get();

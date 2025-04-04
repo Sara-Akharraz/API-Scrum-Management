@@ -1,15 +1,11 @@
-package com.apiscrum.APIScrum.Service;
+package com.apiscrum.apiscrum.Service;
 
-import com.apiscrum.APIScrum.Entity.Epic;
-import com.apiscrum.APIScrum.Entity.Task;
-import com.apiscrum.APIScrum.Entity.UserStory;
-import com.apiscrum.APIScrum.enums.UserStoryProgress;
-
-import java.util.List;
+import com.apiscrum.apiscrum.Entity.UserStory;
+import com.apiscrum.apiscrum.enums.UserStoryProgress;
 
 public interface UserStoryService {
     public void deleteUserStory(Long id);
     public UserStory getUserStory(Long id);
-    public UserStory updateUserStory(Long id, UserStoryProgress progress);
+    public UserStory updateUserStoryProgress(Long id, UserStoryProgress progress);
 
 }

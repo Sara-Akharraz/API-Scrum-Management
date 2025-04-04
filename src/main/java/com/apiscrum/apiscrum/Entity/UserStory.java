@@ -1,7 +1,9 @@
-package com.apiscrum.APIScrum.Entity;
+package com.apiscrum.apiscrum.Entity;
 
-import com.apiscrum.APIScrum.enums.UserStoryPriority;
-import com.apiscrum.APIScrum.enums.UserStoryProgress;
+import com.apiscrum.apiscrum.enums.UserStoryPriority;
+import com.apiscrum.apiscrum.enums.UserStoryProgress;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +18,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name="user_story")
+
 public class UserStory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,14 +41,18 @@ public class UserStory {
     @JoinColumn(name="epic", nullable = true)
     private Epic epic;
     @ManyToOne
-    @JoinColumn(name="sprintBackLog",nullable = true)
+    @JoinColumn(name="sprintBackLog")
     private SprintBackLog sprintBackLog;
 
-    @OneToMany(mappedBy = "task_id")
+    @OneToMany(mappedBy = "associatedUserStory")
+    @JsonManagedReference
     private List<Task> tasks;
 
-    @OneToMany(mappedBy = "test_acceptance_id")
-    private List<Test_Acceptance> test_acceptanceList;
+    @OneToMany(mappedBy = "associatedUserStory")
+    @JsonManagedReference
+    private List<TestAcceptance> test_acceptanceList;
+
+    @Enumerated(EnumType.STRING)
     @Column(name="testing_progress")
     private UserStoryProgress progress;
 
