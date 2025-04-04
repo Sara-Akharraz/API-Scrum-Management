@@ -1,10 +1,8 @@
-package com.apiscrum.APIScrum.Service;
+package com.apiscrum.apiscrum.Service;
 
-import com.apiscrum.APIScrum.Entity.Epic;
-import com.apiscrum.APIScrum.Entity.ProductBackLog;
-import com.apiscrum.APIScrum.Entity.UserStory;
-
-import java.util.List;
+import com.apiscrum.apiscrum.Entity.Epic;
+import com.apiscrum.apiscrum.Entity.ProductBackLog;
+import com.apiscrum.apiscrum.Entity.UserStory;
 
 public interface EpicService {
     public void addEpic(ProductBackLog p, Epic epic);
