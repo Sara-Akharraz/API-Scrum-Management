@@ -1,11 +1,12 @@
-package com.apiscrum.APIScrum.Service.Impl;
+package com.apiscrum.apiscrum.Service.Impl;
 
-import com.apiscrum.APIScrum.Entity.Task;
-import com.apiscrum.APIScrum.Entity.User;
-import com.apiscrum.APIScrum.Repository.TaskRepository;
-import com.apiscrum.APIScrum.enums.Role;
-import com.apiscrum.APIScrum.enums.TaskProgress;
-import com.apiscrum.APIScrum.enums.TaskTags;
+import com.apiscrum.apiscrum.Entity.Task;
+import com.apiscrum.apiscrum.Entity.User;
+import com.apiscrum.apiscrum.Entity.UserStory;
+import com.apiscrum.apiscrum.Repository.TaskRepository;
+import com.apiscrum.apiscrum.enums.Role;
+import com.apiscrum.apiscrum.enums.TaskProgress;
+import com.apiscrum.apiscrum.enums.TaskTags;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
@@ -32,12 +33,13 @@ public class TaskServiceImplTest {
 
 
     private Task task;
-    private User user =new User(1L,"sara","sara@gmail.com","123",Role.Developper);
-    private User user2=new User(2L,"test","test@gmail.com","123",Role.Developper);
+    private User user =new User(1L,"sara","sara@gmail.com","123",Role.DEVELOPER);
+    private User user2=new User(2L,"test","test@gmail.com","123",Role.DEVELOPER);
+    private UserStory userStory=new UserStory();
     @BeforeEach
     public void setup(){
         MockitoAnnotations.openMocks(this);
-        task=new Task(1L,"dark mode","description",TaskProgress.In_Progress,user,TaskTags.FrontEnd,null);
+        task=new Task(1L,"dark mode","description", TaskProgress.In_Progress,user,TaskTags.FrontEnd,userStory);
     }
     @Test
     public void addTaskTest(){
@@ -63,7 +65,7 @@ public class TaskServiceImplTest {
     }
     @Test
     public void updateTaskTest(){
-      Task updatedTask= new Task(1L,"Light mode","updated description",TaskProgress.In_Progress,user,TaskTags.FrontEnd,null);
+      Task updatedTask= new Task(1L,"Light mode","updated description",TaskProgress.In_Progress,user,TaskTags.FrontEnd,userStory);
         when(taskRepository.findById(1L)).thenReturn(Optional.of(task));
         when(taskRepository.save(any(Task.class))).thenReturn(updatedTask);
         taskService.updateTask(1L,updatedTask);
@@ -72,7 +74,7 @@ public class TaskServiceImplTest {
 
     @Test
     void getAllTaskTest(){
-        List<Task> tasks= Arrays.asList(task,new Task(2L, "Another Task", "Another Description", TaskProgress.Blocked, user2, TaskTags.BackEnd, null));
+        List<Task> tasks= Arrays.asList(task,new Task(2L, "Another Task", "Another Description", TaskProgress.Blocked, user2, TaskTags.BackEnd, userStory));
         when(taskRepository.findAll()).thenReturn(tasks);
 
         List<Task> testTasks=taskService.getAllTasks();
@@ -84,7 +86,7 @@ public class TaskServiceImplTest {
         when(taskRepository.findById(1L)).thenReturn(Optional.of(task));
         when(taskRepository.save(any(Task.class))).thenReturn(task);
 
-        taskService.updateTaskProgress(1L, TaskProgress.Done);
+        taskService.updateTaskProgress(1L,TaskProgress.Done);
 
         assertEquals(TaskProgress.Done, task.getProgress());
         verify(taskRepository, times(1)).save(any(Task.class));

@@ -1,14 +1,13 @@
-package com.apiscrum.APIScrum.Service.Impl;
+package com.apiscrum.apiscrum.Service.Impl;
 
-import com.apiscrum.APIScrum.Entity.Task;
-import com.apiscrum.APIScrum.Repository.TaskRepository;
-import com.apiscrum.APIScrum.Service.TaskService;
-import com.apiscrum.APIScrum.enums.TaskProgress;
+import com.apiscrum.apiscrum.Entity.Task;
+import com.apiscrum.apiscrum.Repository.TaskRepository;
+import com.apiscrum.apiscrum.Service.TaskService;
+import com.apiscrum.apiscrum.enums.TaskProgress;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

@@ -1,7 +1,7 @@
-package com.apiscrum.APIScrum.DTO;
+package com.apiscrum.apiscrum.DTO;
 
-import com.apiscrum.APIScrum.enums.TaskProgress;
-import com.apiscrum.APIScrum.enums.TaskTags;
+import com.apiscrum.apiscrum.enums.TaskProgress;
+import com.apiscrum.apiscrum.enums.TaskTags;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

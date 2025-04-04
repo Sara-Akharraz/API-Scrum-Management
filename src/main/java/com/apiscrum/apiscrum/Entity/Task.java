@@ -1,14 +1,13 @@
-package com.apiscrum.APIScrum.Entity;
+package com.apiscrum.apiscrum.Entity;
 
-import com.apiscrum.APIScrum.enums.TaskProgress;
-import com.apiscrum.APIScrum.enums.TaskTags;
+import com.apiscrum.apiscrum.enums.TaskProgress;
+import com.apiscrum.apiscrum.enums.TaskTags;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

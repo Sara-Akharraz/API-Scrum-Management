@@ -1,13 +1,15 @@
-package com.apiscrum.APIScrum.Mapper;
+package com.apiscrum.apiscrum.Mapper;
 
-import com.apiscrum.APIScrum.DTO.TaskDTO;
-import com.apiscrum.APIScrum.Entity.Task;
-import com.apiscrum.APIScrum.Entity.User;
-import com.apiscrum.APIScrum.Entity.UserStory;
-import com.apiscrum.APIScrum.Repository.UserRepository;
-import com.apiscrum.APIScrum.Repository.UserStoryRepository;
+import com.apiscrum.apiscrum.DTO.TaskDTO;
+import com.apiscrum.apiscrum.Entity.Task;
+import com.apiscrum.apiscrum.Entity.User;
+import com.apiscrum.apiscrum.Entity.UserStory;
+import com.apiscrum.apiscrum.Repository.UserRepository;
+import com.apiscrum.apiscrum.Repository.UserStoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TaskMapper {
 
     @Autowired
