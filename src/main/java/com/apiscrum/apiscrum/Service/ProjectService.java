@@ -1,12 +1,15 @@
-package com.apiscrum.apiscrum.Service;
+package com.apiscrum.APIScrum.Service;
 
-import com.apiscrum.apiscrum.Entity.Project;
+import com.apiscrum.APIScrum.DTO.ProjectDto;
+import com.apiscrum.APIScrum.Entity.Project;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ProjectService {
-    public void addProject(Project project);
-    public Project getProject(Long id);
-    public Optional<Project> getProjectByProductBackLog(Long id);
-
+    public ProjectDto addProject(ProjectDto project);
+    public List<ProjectDto> getProjects();
+    public ProjectDto getProject(Long id);
+    public Optional<ProjectDto> getProjectByProductBackLog(Long id);
+    public void deleteProject(Long id);
 }
