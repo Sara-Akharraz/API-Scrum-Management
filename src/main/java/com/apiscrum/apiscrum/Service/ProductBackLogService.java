@@ -1,21 +1,20 @@
-package com.apiscrum.apiscrum.Service;
+package com.apiscrum.APIScrum.Service;
 
-import com.apiscrum.apiscrum.Entity.Epic;
-import com.apiscrum.apiscrum.Entity.ProductBackLog;
-import com.apiscrum.apiscrum.Entity.UserStory;
+import com.apiscrum.APIScrum.DTO.ProductBackLogDto;
+import com.apiscrum.APIScrum.DTO.UserStoryDto;
+import com.apiscrum.APIScrum.Entity.Epic;
+import com.apiscrum.APIScrum.Entity.ProductBackLog;
+import com.apiscrum.APIScrum.Entity.UserStory;
+import com.apiscrum.APIScrum.Mapper.UserStoryMapper;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ProductBackLogService {
-    public void addProductBackLog(ProductBackLog productBackLog);
-    public void updateProductBackLog(Long id, ProductBackLog productBackLog);
+    public ProductBackLogDto addProductBackLog(ProductBackLogDto productBackLog, Long id_project);
+    public ProductBackLogDto updateProductBackLog(Long id, ProductBackLogDto productBackLog);
     public void deleteProductBackLog(Long id);
-    public Optional<ProductBackLog> getProductBackLog(Long id);
-    public List<ProductBackLog> getAllProductBackLog();
-    public void addEpic(Long id, Epic epic);
-    public void deleteEpic(Long id_p, Long id);
-    public void deleteUserStory(Long id,Long id_us);
-    public void addUserStory(Long id_p, UserStory userStory);
-    public void deleteUserStoryInBaclog(Long id_us, Long id_pb);
+    public Optional<ProductBackLogDto> getProductBackLog(Long id);
+    public List<ProductBackLogDto> getAllProductBackLog();
+    public ProductBackLogDto addUserStoryToPB(UserStoryDto userStory, Long id);
 }
