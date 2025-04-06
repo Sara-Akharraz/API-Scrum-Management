@@ -57,4 +57,13 @@ public class ProjectServiceImpl implements ProjectService {
             throw new RuntimeException("Project not found with id: " + id);
     }
 
+    @Override
+    public ProjectDto updateProject(ProjectDto projectDto, Long id) {
+        Optional<Project> p = Optional.of(projectRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Project not found with id: " + id)));
+        p.get().setName(projectDto.getName());
+        p.get().setDescription(projectDto.getDescription());
+        projectRepository.save(p.get());
+        return ProjectMapper.mapToProjectDTO(projectRepository.save(p.get()));
+    }
 }
