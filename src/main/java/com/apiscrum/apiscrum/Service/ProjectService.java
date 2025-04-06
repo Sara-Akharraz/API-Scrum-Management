@@ -11,5 +11,6 @@ public interface ProjectService {
     public List<ProjectDto> getProjects();
     public ProjectDto getProject(Long id);
     public Optional<ProjectDto> getProjectByProductBackLog(Long id);
+    public ProjectDto updateProject(ProjectDto project, Long id);
     public void deleteProject(Long id);
 }
