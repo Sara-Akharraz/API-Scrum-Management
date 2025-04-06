@@ -1,41 +1,43 @@
-package com.apiscrum.apiscrum.Service.Impl;
+package com.apiscrum.APIScrum.Service.Impl;
 
-import com.apiscrum.apiscrum.Entity.UserStory;
-import com.apiscrum.apiscrum.Repository.UserStoryRepository;
-import com.apiscrum.apiscrum.Service.UserStoryService;
-import com.apiscrum.apiscrum.enums.UserStoryProgress;
-import jakarta.persistence.EntityNotFoundException;
+import com.apiscrum.APIScrum.DTO.UserStoryDto;
+import com.apiscrum.APIScrum.Entity.Epic;
+import com.apiscrum.APIScrum.Entity.ProductBackLog;
+import com.apiscrum.APIScrum.Entity.UserStory;
+import com.apiscrum.APIScrum.Mapper.UserStoryMapper;
+import com.apiscrum.APIScrum.Repository.EpicRepository;
+import com.apiscrum.APIScrum.Repository.ProductBackLogRepository;
+import com.apiscrum.APIScrum.Repository.UserStoryRepository;
+import com.apiscrum.APIScrum.Service.UserStoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class UserStoryServiceImpl implements UserStoryService {
     @Autowired
     UserStoryRepository userStoryRepository;
+    @Autowired
+    ProductBackLogRepository productBackLogRepository;
+    @Autowired
+    EpicRepository epicRepository;
+
+
+
+
 
     @Override
     public void deleteUserStory(Long id) {
-        userStoryRepository.deleteById(id);
+        if(userStoryRepository.existsById(id))
+            userStoryRepository.deleteById(id);
+        else
+            throw new RuntimeException("User Story not found with id: " + id);
     }
 
     @Override
-    public UserStory getUserStory(Long id) {
-        return userStoryRepository.findById(id).get();
+    public UserStoryDto getUserStory(Long id) {
+        UserStory us = userStoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User Story not found with id: " + id));
+        return UserStoryMapper.mapToUserStoryDTO(us);
     }
-
-    @Override
-    public UserStory updateUserStoryProgress(Long id, UserStoryProgress updatedprogress) {
-        Optional<UserStory> prevUser_Story=userStoryRepository.findById(id);
-        if(prevUser_Story.isPresent()){
-            UserStory userStory=prevUser_Story.get();
-            userStory.setProgress(updatedprogress);
-            return userStoryRepository.save(userStory);
-        }
-        else{
-            throw new EntityNotFoundException("User story not found for id :" +id);
-        }
-    }
-
+    
 }
