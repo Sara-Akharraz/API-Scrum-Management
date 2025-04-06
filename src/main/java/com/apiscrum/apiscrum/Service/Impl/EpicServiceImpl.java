@@ -33,10 +33,10 @@ public class EpicServiceImpl implements EpicService {
     public EpicDto addEpic(EpicDto epic, Long id_pb) {
         ProductBackLog pb = productBackLogRepository.findById(id_pb)
                 .orElseThrow(() -> new RuntimeException("Product Backlog not found with id: " + id_pb));
-        Epic newEpic = EpicMapper.mapToEpic(epic);
-        newEpic.setTitle(epic.getTitle());
-        newEpic.setDescription(epic.getDescription());
-        newEpic.setProductBackLog(pb);
+        Epic newEpic = Epic.builder()
+                .title(epic.getTitle())
+                .description(epic.getDescription())
+                .productBackLog(pb).build();
         return EpicMapper.mapToEpicDTO(epicRepository.save(newEpic));
     }
 
@@ -48,6 +48,18 @@ public class EpicServiceImpl implements EpicService {
         } else {
             throw new RuntimeException("Epic not found with id: " + id);
         }
+    }
+
+    @Override
+    public EpicDto updateEpic(EpicDto epic, Long id) {
+        Epic existingEpic = epicRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Epic not found with id: " + id));
+        existingEpic.setTitle(epic.getTitle());
+        existingEpic.setDescription(epic.getDescription());
+        existingEpic.setProductBackLog(epic.getProductBackLog());
+        existingEpic.setUserStories(epic.getUserStories());
+        Epic updatedEpic = epicRepository.save(existingEpic);
+        return EpicMapper.mapToEpicDTO(epicRepository.save(updatedEpic));
     }
 
     @Override
@@ -79,10 +91,8 @@ public class EpicServiceImpl implements EpicService {
     public EpicDto addUserStoryToEpic(UserStoryDto userStory, Long id) {
         Epic epic = epicRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Epic not found with id: " + id));
-        epic.getUserStories().add(UserStoryMapper.mapToUserStory(userStory));
         userStory.setEpic(epic);
         userStoryRepository.save(UserStoryMapper.mapToUserStory(userStory));
         return EpicMapper.mapToEpicDTO(epic);
     }
-
 }
