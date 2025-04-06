@@ -3,6 +3,7 @@ package com.apiscrum.APIScrum.DTO;
 import com.apiscrum.APIScrum.Entity.Epic;
 import com.apiscrum.APIScrum.Entity.ProductBackLog;
 import com.apiscrum.APIScrum.enums.UserStoryPriority;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import jakarta.validation.constraints.NotNull;
@@ -23,6 +24,8 @@ public class UserStoryDto {
     private String i_wish_to;
     private String in_order_to;
     private UserStoryPriority priority;
+    @JsonIgnore
     private ProductBackLog productBackLog;
+    @JsonIgnore
     private Epic epic;
 }
