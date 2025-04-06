@@ -21,6 +21,5 @@ public class ProductBackLogDto {
     private List<Epic> epics;
     @Builder.Default
     private List<UserStory> userStories = new ArrayList<>();
-    @NotNull(message = "A project for the backlog is required (cannot be null)")
     private Project project;
 }
