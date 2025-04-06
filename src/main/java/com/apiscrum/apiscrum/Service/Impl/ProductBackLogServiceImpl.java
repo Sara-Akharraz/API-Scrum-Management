@@ -33,13 +33,15 @@ public class ProductBackLogServiceImpl implements ProductBackLogService {
     @Autowired
     ProjectRepository projectRepository;
     @Override
-    public ProductBackLogDto addProductBackLog(ProductBackLogDto productBackLog, Long id_project) {
+    public ProductBackLogDto addProductBackLog(String title, Long id_project) {
         Project project = projectRepository.findById(id_project)
-                .orElseThrow(() -> new RuntimeException("Product Backlog not found with id: " + id_project));
-        productBackLog.setProject(project);
+                .orElseThrow(() -> new RuntimeException("Project not found with id: " + id_project));
+        ProductBackLog productBackLog = ProductBackLog.builder().title(title).project(project).build();
+        projectRepository.save(project);
+        productBackLogRepository.save(productBackLog);
         return ProductBackLogMapper.mapToProductBackLogDTO(productBackLogRepository.save(
-                ProductBackLogMapper.mapToProductBackLog(productBackLog)
-        ));
+                productBackLog)
+        );
     }
 
     @Override
@@ -68,6 +70,14 @@ public class ProductBackLogServiceImpl implements ProductBackLogService {
     public Optional<ProductBackLogDto> getProductBackLog(Long id) {
 
         return productBackLogRepository.findById(id).map(ProductBackLogMapper::mapToProductBackLogDTO);
+    }
+
+    @Override
+    public List<UserStoryDto> getUserStoriesByProductBackLog(Long id) {
+        ProductBackLog pb = productBackLogRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product Backlog not found with id: " + id));
+        return pb.getUserStories().stream().map((p) -> UserStoryMapper.mapToUserStoryDTO(p))
+                .collect(Collectors.toList());
     }
 
     @Override
