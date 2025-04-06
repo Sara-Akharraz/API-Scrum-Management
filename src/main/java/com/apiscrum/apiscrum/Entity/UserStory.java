@@ -1,35 +1,30 @@
-package com.apiscrum.apiscrum.Entity;
+package com.apiscrum.APIScrum.Entity;
 
-import com.apiscrum.apiscrum.enums.UserStoryPriority;
-import com.apiscrum.apiscrum.enums.UserStoryProgress;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.apiscrum.APIScrum.enums.UserStoryPriority;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name="user_story")
-
 public class UserStory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name="title")
     private String title;
-    @Column(name="as_a")
+    @Column(name="as_a", nullable=false)
     private String as_a;
-    @Column(name="i_wish_to")
+    @Column(name="i_wish_to", nullable=false)
     private String i_wish_to;
-    @Column(name="in_order_to")
+    @Column(name="in_order_to" , nullable=true)
     private String in_order_to;
     @Column(name = "priority")
     @Enumerated(EnumType.STRING)
@@ -37,23 +32,9 @@ public class UserStory {
     @ManyToOne
     @JoinColumn(name="product_backLog")
     private ProductBackLog productBackLog;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="epic", nullable = true)
+    @JsonBackReference
     private Epic epic;
-    @ManyToOne
-    @JoinColumn(name="sprintBackLog")
-    private SprintBackLog sprintBackLog;
-
-    @OneToMany(mappedBy = "associatedUserStory")
-    @JsonManagedReference
-    private List<Task> tasks;
-
-    @OneToMany(mappedBy = "associatedUserStory")
-    @JsonManagedReference
-    private List<TestAcceptance> test_acceptanceList;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name="testing_progress")
-    private UserStoryProgress progress;
 
 }
