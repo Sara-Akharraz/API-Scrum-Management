@@ -1,5 +1,6 @@
-package com.apiscrum.apiscrum.Entity;
+package com.apiscrum.APIScrum.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,13 +10,12 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name="product_backlog")
 public class ProductBackLog {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,9 +24,9 @@ public class ProductBackLog {
     @OneToMany(mappedBy = "productBackLog", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Epic> epics;
     @OneToMany(mappedBy="productBackLog")
+    @JsonIgnore
     private List<UserStory> userStories;
     @ManyToOne
-    @JoinColumn(name = "project", nullable = false)  // Use the appropriate column name
+    @JoinColumn(name = "project", nullable = false)
     private Project project;
-
 }
