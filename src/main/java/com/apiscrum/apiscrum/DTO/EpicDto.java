@@ -21,6 +21,5 @@ public class EpicDto {
     private String title;
     private String description;
     private List<UserStory> userStories;
-    @NotNull(message="Epic must be associated to a product backlog")
     private ProductBackLog productBackLog;
 }
