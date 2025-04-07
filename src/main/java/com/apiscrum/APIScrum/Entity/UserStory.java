@@ -1,10 +1,17 @@
 package com.apiscrum.APIScrum.Entity;
 
 import com.apiscrum.APIScrum.enums.UserStoryPriority;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name="user_story")
 public class UserStory {
@@ -13,11 +20,11 @@ public class UserStory {
     private Long id;
     @Column(name="title")
     private String title;
-    @Column(name="as_a")
+    @Column(name="as_a", nullable=false)
     private String as_a;
-    @Column(name="i_wish_to")
+    @Column(name="i_wish_to", nullable=false)
     private String i_wish_to;
-    @Column(name="in_order_to")
+    @Column(name="in_order_to" , nullable=true)
     private String in_order_to;
     @Column(name = "priority")
     @Enumerated(EnumType.STRING)
@@ -25,7 +32,9 @@ public class UserStory {
     @ManyToOne
     @JoinColumn(name="product_backLog")
     private ProductBackLog productBackLog;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="epic", nullable = true)
+    @JsonBackReference
     private Epic epic;
+
 }

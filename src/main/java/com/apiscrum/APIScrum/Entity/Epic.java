@@ -1,11 +1,18 @@
 package com.apiscrum.APIScrum.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
-@Data
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name="epic")
 public class Epic {
     @Id
@@ -19,6 +26,7 @@ public class Epic {
     private List<UserStory> userStories;
     @ManyToOne
     @JoinColumn(name = "product_backLog")
+    @JsonBackReference
     private ProductBackLog productBackLog;
 
 }
