@@ -6,6 +6,7 @@ import com.apiscrum.APIScrum.DTO.ProjectDto;
 import com.apiscrum.APIScrum.Entity.Epic;
 import com.apiscrum.APIScrum.Entity.ProductBackLog;
 import com.apiscrum.APIScrum.Entity.Project;
+import com.apiscrum.APIScrum.Mapper.EpicMapper;
 import com.apiscrum.APIScrum.Mapper.ProductBackLogMapper;
 import com.apiscrum.APIScrum.Mapper.ProjectMapper;
 import com.apiscrum.APIScrum.Repository.ProductBackLogRepository;
@@ -103,5 +104,19 @@ public class ProjectServiceImplTest {
         assertEquals("Epic 1", foundEpics.get(0).getName());
         assertEquals("Epic 2", foundEpics.get(1).getName());
         assertEquals("Epic 3", foundEpics.get(2).getName());
+    }
+    @Test
+    public void updateProject(){
+        Project mockProject = Project.builder()
+                .id(1l)
+                .name("Namy")
+                .description("description of test")
+                .build();
+        when(projectRepository.findById(1L)).thenReturn(Optional.of(mockProject));
+        mockProject.setName("Namy updated");
+        when(projectRepository.save(any(Project.class))).thenReturn(mockProject);
+        ProjectDto updatedProject = projectService.updateProject(ProjectMapper.mapToProjectDTO(mockProject),1L);
+        assertNotNull(updatedProject);
+        assertEquals("Namy updated", updatedProject.getName());
     }
 }
