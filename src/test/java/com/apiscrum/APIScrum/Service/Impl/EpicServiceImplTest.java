@@ -4,6 +4,7 @@ import com.apiscrum.APIScrum.DTO.EpicDto;
 import com.apiscrum.APIScrum.DTO.UserStoryDto;
 import com.apiscrum.APIScrum.Entity.Epic;
 import com.apiscrum.APIScrum.Entity.UserStory;
+import com.apiscrum.APIScrum.Mapper.EpicMapper;
 import com.apiscrum.APIScrum.Mapper.UserStoryMapper;
 import com.apiscrum.APIScrum.Repository.EpicRepository;
 import com.apiscrum.APIScrum.Entity.ProductBackLog;
@@ -104,6 +105,7 @@ public class EpicServiceImplTest {
     public void testAddUserStoryToEpic(){
         UserStoryDto us = UserStoryDto.builder().title("US 1").as_a("Developer").i_wish_to("develop...").build();
         Epic epic = Epic.builder().title("Epic 1").userStories(new ArrayList<>()).build();
+        epic.getUserStories().add(UserStoryMapper.mapToUserStory(us));
         when(epicRepository.findById(1L)).thenReturn(Optional.of(epic));
         EpicDto updatedEpic = epicService.addUserStoryToEpic(us, 1L);
 
@@ -126,6 +128,17 @@ public class EpicServiceImplTest {
         assertEquals("US 1", foundUserStories.get(0).getTitle());
         assertEquals("Developer", foundUserStories.get(0).getAs_a());
         assertEquals("Manage....", foundUserStories.get(1).getI_wish_to());
+    }
+
+    @Test
+    public void tsetUpdateEpic(){
+        Epic epic = Epic.builder().id(1L).title("Epic 1").build();
+        when(epicRepository.findById(1L)).thenReturn(Optional.of(epic));
+        epic.setTitle("Epic updated");
+        when(epicRepository.save(any(Epic.class))).thenReturn(epic);
+        EpicDto updatedEpic = epicService.updateEpic(EpicMapper.mapToEpicDTO(epic),1L);
+        assertNotNull(updatedEpic);
+        assertEquals("Epic updated", updatedEpic.getTitle());
     }
 
 }
