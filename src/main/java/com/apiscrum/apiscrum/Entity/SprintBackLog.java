@@ -21,7 +21,7 @@ public class SprintBackLog {
     private Long id;
 
 
-    @OneToMany(mappedBy = "sprintBackLog")
+    @OneToMany(mappedBy = "sprintBackLog",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserStory> userStoriesList = new ArrayList<>();
 
     @OneToOne

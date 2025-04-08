@@ -3,11 +3,13 @@ package com.apiscrum.apiscrum.Controller;
 import com.apiscrum.apiscrum.DTO.SprintBackLogDTO;
 import com.apiscrum.apiscrum.DTO.TaskDTO;
 import com.apiscrum.apiscrum.DTO.TestAcceptanceDTO;
+import com.apiscrum.apiscrum.DTO.UserStoryDto;
 import com.apiscrum.apiscrum.Entity.SprintBackLog;
 import com.apiscrum.apiscrum.Entity.UserStory;
 import com.apiscrum.apiscrum.Mapper.SprintBackLogMapper;
 import com.apiscrum.apiscrum.Mapper.TaskMapper;
 import com.apiscrum.apiscrum.Mapper.TestAcceptanceMapper;
+import com.apiscrum.apiscrum.Mapper.UserStoryMapper;
 import com.apiscrum.apiscrum.Service.SprintBackLogService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -59,9 +61,16 @@ public class SprintBackLogController {
     
     @GetMapping("/{id}/ListUserStory")
     @PreAuthorize("hasRole('SCRUM_MANAGER')")
-    public ResponseEntity<List<UserStory>> getUserStoriesAssociated(@PathVariable Long id){
+    public ResponseEntity<List<UserStoryDto>> getUserStoriesAssociated(@PathVariable Long id){
        List<UserStory> userStories= sprintBackLogService.getUserStoriesAssociated(id);
-        return userStories.isEmpty()?ResponseEntity.notFound().build():ResponseEntity.ok(userStories);
+        if (userStories.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        List<UserStoryDto> userStoryDtos = userStories.stream()
+                .map(UserStoryMapper::mapToUserStoryDTO)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(userStoryDtos);
     }
     @GetMapping("/{id}/todo")
     @PreAuthorize("hasRole('SCRUM_MANAGER')")

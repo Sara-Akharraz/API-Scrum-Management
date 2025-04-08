@@ -29,12 +29,20 @@ public class SprintBackLogMapper {
         );
     }
     public SprintBackLog toEntity(SprintBackLogDTO sprintBackLogDTO){
-        Sprint sprint =sprintRepository.findById(sprintBackLogDTO.getAssociatedSprintId()).orElseThrow(()->new RuntimeException("Sprint not found"));
-        List<UserStory> userStories=userStoryRepository.findAllById(sprintBackLogDTO.getUserStoriesList());
-        return new SprintBackLog(
-                sprintBackLogDTO.getId(),
-                userStories,
-                sprint
-        );
+        Sprint sprint = sprintRepository.findById(sprintBackLogDTO.getAssociatedSprintId())
+                .orElseThrow(() -> new RuntimeException("Sprint not found"));
+
+        SprintBackLog sprintBackLog = new SprintBackLog();
+        sprintBackLog.setId(sprintBackLogDTO.getId());
+        sprintBackLog.setAssociatedSprint(sprint);
+
+        List<UserStory> userStories = userStoryRepository.findAllById(sprintBackLogDTO.getUserStoriesList());
+        for (UserStory us : userStories) {
+            us.setSprintBackLog(sprintBackLog);
+        }
+
+        sprintBackLog.setUserStoriesList(userStories);
+
+        return sprintBackLog;
     }
 }

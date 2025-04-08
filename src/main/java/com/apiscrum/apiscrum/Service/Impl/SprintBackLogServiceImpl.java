@@ -2,7 +2,9 @@ package com.apiscrum.apiscrum.Service.Impl;
 
 import com.apiscrum.apiscrum.Entity.*;
 import com.apiscrum.apiscrum.Repository.SprintBackLogRepository;
+import com.apiscrum.apiscrum.Repository.UserStoryRepository;
 import com.apiscrum.apiscrum.Service.SprintBackLogService;
+import com.apiscrum.apiscrum.enums.UserStoryProgress;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import java.util.Optional;
 public class SprintBackLogServiceImpl implements SprintBackLogService {
 
     private SprintBackLogRepository sprintBackLogRepository;
+    private UserStoryRepository userStoryRepository;
 
     public SprintBackLogServiceImpl(SprintBackLogRepository sprintBackLogRepository){
         this.sprintBackLogRepository=sprintBackLogRepository;
@@ -24,7 +27,6 @@ public class SprintBackLogServiceImpl implements SprintBackLogService {
     }
     @Override
     public SprintBackLog addSprintBackLog(SprintBackLog sprintBackLog) {
-
         if (sprintBackLog.getUserStoriesList() != null) {
             for (UserStory us : sprintBackLog.getUserStoriesList()) {
                 us.setSprintBackLog(sprintBackLog);
@@ -32,22 +34,25 @@ public class SprintBackLogServiceImpl implements SprintBackLogService {
         }
 
         return sprintBackLogRepository.save(sprintBackLog);
-
     }
 
     @Override
-    public SprintBackLog updateSprintBackLog(Long id, SprintBackLog UpdatedSprintBacklog) {
-        Optional<SprintBackLog> prevSprintBacklog =sprintBackLogRepository.findById(id);
-        if(prevSprintBacklog.isPresent()){
-            SprintBackLog sprintBackLog=prevSprintBacklog.get();
-            sprintBackLog.setAssociatedSprint(UpdatedSprintBacklog.getAssociatedSprint());
-            sprintBackLog.setUserStoriesList(UpdatedSprintBacklog.getUserStoriesList());
-            return sprintBackLogRepository.save(sprintBackLog);
-        }
-        else{
-            throw new EntityNotFoundException("SprintBackLog not found for id :" +id);
-        }
+    public SprintBackLog updateSprintBackLog(Long id, SprintBackLog updatedSprintBacklog) {
+        return sprintBackLogRepository.findById(id).map(existedSprintBacklog -> {
 
+            existedSprintBacklog.setAssociatedSprint(updatedSprintBacklog.getAssociatedSprint());
+
+            existedSprintBacklog.getUserStoriesList().clear();
+
+            if (updatedSprintBacklog.getUserStoriesList() != null) {
+                for (UserStory us : updatedSprintBacklog.getUserStoriesList()) {
+                    us.setSprintBackLog(existedSprintBacklog);
+                    existedSprintBacklog.getUserStoriesList().add(us);
+                }
+            }
+
+            return sprintBackLogRepository.save(existedSprintBacklog);
+        }).orElseThrow(() -> new EntityNotFoundException("SprintBackLog not found for id :" + id));
     }
 
     @Override
