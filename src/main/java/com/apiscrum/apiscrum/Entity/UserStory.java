@@ -1,12 +1,15 @@
-package com.apiscrum.APIScrum.Entity;
+package com.apiscrum.apiscrum.Entity;
 
-import com.apiscrum.APIScrum.enums.UserStoryPriority;
+import com.apiscrum.apiscrum.enums.UserStoryPriority;
+import com.apiscrum.apiscrum.enums.UserStoryProgress;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -36,5 +39,18 @@ public class UserStory {
     @JoinColumn(name="epic", nullable = true)
     @JsonBackReference
     private Epic epic;
+    @ManyToOne
+    @JoinColumn(name="sprintBackLog")
+    private SprintBackLog sprintBackLog;
+
+    @OneToMany(mappedBy = "associatedUserStory",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Task> tasks;
+
+    @OneToMany(mappedBy = "associatedUserStory",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TestAcceptance> test_acceptanceList;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="testing_progress")
+    private UserStoryProgress progress;
 
 }

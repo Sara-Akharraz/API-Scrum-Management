@@ -1,17 +1,20 @@
-package com.apiscrum.APIScrum.Service.Impl;
+package com.apiscrum.apiscrum.Service.Impl;
 
-import com.apiscrum.APIScrum.DTO.ProjectDto;
-import com.apiscrum.APIScrum.DTO.UserStoryDto;
-import com.apiscrum.APIScrum.Entity.Project;
-import com.apiscrum.APIScrum.Entity.UserStory;
-import com.apiscrum.APIScrum.Repository.UserStoryRepository;
-import jakarta.persistence.Entity;
+
+import com.apiscrum.apiscrum.DTO.UserStoryDto;
+import com.apiscrum.apiscrum.Entity.UserStory;
+import com.apiscrum.apiscrum.Repository.UserStoryRepository;
+import com.apiscrum.apiscrum.enums.UserStoryPriority;
+import com.apiscrum.apiscrum.enums.UserStoryProgress;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,6 +28,23 @@ public class UserStoryServiceImplTest {
     private UserStoryRepository userStoryRepository;
     @InjectMocks
     private UserStoryServiceImpl userStoryService;
+    UserStory userStory;
+    @BeforeEach
+    public void setUp(){
+        userStory=new UserStory(
+                1L,
+                "FREE PALESTINE",
+                "user",
+                "have a site",
+                "publish information about our Palestinian brothers and sisters and what they are going through.",
+                UserStoryPriority.HAVE_TO,
+                null,
+                null,
+                null,
+                null,
+                null,
+                UserStoryProgress.Passed);
+    }
 
     @Test
     public void TestDeleteUserStory(){
@@ -45,5 +65,55 @@ public class UserStoryServiceImplTest {
         UserStoryDto foundedUS= userStoryService.getUserStory(1l);
         assertNotNull(foundedUS);
         assertEquals("Developer", foundedUS.getAs_a());
+    }
+//    @Test
+//    public void TestAddUserStory(){
+//        when(userStoryRepository.save(any(UserStory.class))).thenReturn(userStory);
+//        UserStory createdUserStory=userStoryService.addUserStory(userStory);
+//        assertNotNull(createdUserStory);
+//        assertEquals("FREE PALESTINE",createdUserStory.getTitle());
+//    }
+    @Test
+    public void TestUpdateUserStory(){
+        UserStory updatedUserStory=new UserStory(
+                1L,
+                "FREE PALESTINE",
+                "user",
+                "have a site",
+                "share stories and raise awareness about the struggles of our Palestinian brothers and sisters.",
+                UserStoryPriority.HAVE_TO,
+                null,
+                null,
+                null,
+                null,
+                null,
+                UserStoryProgress.Passed);
+        when(userStoryRepository.findById(1L)).thenReturn(Optional.of(userStory));
+        when(userStoryRepository.save(any(UserStory.class))).thenReturn(updatedUserStory);
+        userStoryService.updateUserStory(1L,updatedUserStory);
+        verify(userStoryRepository,times(1)).save(any(UserStory.class));
+
+    }
+    @Test
+    public void TestgetAllUserStories(){
+        List<UserStory> userStories=Arrays.asList(userStory,
+                new UserStory(
+                        1L,
+                        "FREE PALESTINE",
+                        "user",
+                        "have a site",
+                        "to speak about what is happening in Gaza.",
+                        UserStoryPriority.HAVE_TO,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        UserStoryProgress.To_Be_Tested)
+                );
+        when(userStoryRepository.findAll()).thenReturn((userStories));
+        List<UserStory> testUserStories=userStoryService.getAllUserStories();
+        assertEquals(2,testUserStories.size());
+        verify(userStoryRepository,times(1)).findAll();
     }
 }

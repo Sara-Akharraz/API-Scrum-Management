@@ -1,8 +1,15 @@
-package com.apiscrum.APIScrum.Mapper;
+package com.apiscrum.apiscrum.Mapper;
 
-import com.apiscrum.APIScrum.DTO.UserStoryDto;
-import com.apiscrum.APIScrum.Entity.UserStory;
+import com.apiscrum.apiscrum.DTO.UserStoryDto;
+import com.apiscrum.apiscrum.Entity.UserStory;
+import com.apiscrum.apiscrum.Repository.TaskRepository;
+import com.apiscrum.apiscrum.Repository.UserStoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+@Component
 public class UserStoryMapper {
 
     public static UserStoryDto mapToUserStoryDTO(UserStory userStory){
@@ -15,6 +22,10 @@ public class UserStoryMapper {
                 .priority(userStory.getPriority())
                 .productBackLog(userStory.getProductBackLog())
                 .epic(userStory.getEpic())
+                .tasks(userStory.getTasks())
+                .progress(userStory.getProgress())
+                .sprintBackLog(userStory.getSprintBackLog())
+                .test_acceptanceList(userStory.getTest_acceptanceList())
                 .build();
     }
 
@@ -28,6 +39,10 @@ public class UserStoryMapper {
                 .priority(userStoryDto.getPriority())
                 .productBackLog(userStoryDto.getProductBackLog())
                 .epic(userStoryDto.getEpic())
+                .progress(userStoryDto.getProgress())
+                .sprintBackLog(userStoryDto.getSprintBackLog())
+                .tasks(userStoryDto.getTasks())
+                .test_acceptanceList(userStoryDto.getTest_acceptanceList())
                 .build();
     }
 }
