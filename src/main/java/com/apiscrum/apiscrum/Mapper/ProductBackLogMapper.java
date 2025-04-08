@@ -1,7 +1,8 @@
-package com.apiscrum.APIScrum.Mapper;
+package com.apiscrum.apiscrum.Mapper;
 
-import com.apiscrum.APIScrum.DTO.ProductBackLogDto;
-import com.apiscrum.APIScrum.Entity.ProductBackLog;
+
+import com.apiscrum.apiscrum.DTO.ProductBackLogDto;
+import com.apiscrum.apiscrum.Entity.ProductBackLog;
 
 public class ProductBackLogMapper {
     public static ProductBackLogDto mapToProductBackLogDTO(ProductBackLog productBackLog) {

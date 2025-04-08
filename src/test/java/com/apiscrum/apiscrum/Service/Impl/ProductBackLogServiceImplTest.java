@@ -1,21 +1,21 @@
-package com.apiscrum.APIScrum.Service.Impl;
+package com.apiscrum.apiscrum.Service.Impl;
 
-import com.apiscrum.APIScrum.DTO.EpicDto;
-import com.apiscrum.APIScrum.DTO.ProductBackLogDto;
-import com.apiscrum.APIScrum.DTO.ProjectDto;
-import com.apiscrum.APIScrum.DTO.UserStoryDto;
-import com.apiscrum.APIScrum.Entity.Epic;
-import com.apiscrum.APIScrum.Entity.ProductBackLog;
-import com.apiscrum.APIScrum.Entity.Project;
-import com.apiscrum.APIScrum.Entity.UserStory;
-import com.apiscrum.APIScrum.Mapper.ProductBackLogMapper;
-import com.apiscrum.APIScrum.Mapper.ProjectMapper;
-import com.apiscrum.APIScrum.Mapper.UserStoryMapper;
-import com.apiscrum.APIScrum.Repository.EpicRepository;
-import com.apiscrum.APIScrum.Repository.ProductBackLogRepository;
-import com.apiscrum.APIScrum.Repository.ProjectRepository;
-import com.apiscrum.APIScrum.Repository.UserStoryRepository;
-import com.apiscrum.APIScrum.Service.ProductBackLogService;
+import com.apiscrum.apiscrum.DTO.EpicDto;
+import com.apiscrum.apiscrum.DTO.ProductBackLogDto;
+import com.apiscrum.apiscrum.DTO.ProjectDto;
+import com.apiscrum.apiscrum.DTO.UserStoryDto;
+import com.apiscrum.apiscrum.Entity.Epic;
+import com.apiscrum.apiscrum.Entity.ProductBackLog;
+import com.apiscrum.apiscrum.Entity.Project;
+import com.apiscrum.apiscrum.Entity.UserStory;
+import com.apiscrum.apiscrum.Mapper.ProductBackLogMapper;
+import com.apiscrum.apiscrum.Mapper.ProjectMapper;
+import com.apiscrum.apiscrum.Mapper.UserStoryMapper;
+import com.apiscrum.apiscrum.Repository.EpicRepository;
+import com.apiscrum.apiscrum.Repository.ProductBackLogRepository;
+import com.apiscrum.apiscrum.Repository.ProjectRepository;
+import com.apiscrum.apiscrum.Repository.UserStoryRepository;
+import com.apiscrum.apiscrum.Service.ProductBackLogService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -58,7 +58,7 @@ public class ProductBackLogServiceImplTest {
         productBackLog = ProductBackLogDto.builder().id(1L).title("PB 1").build();
         when(projectRepository.findById(1L)).thenReturn(Optional.ofNullable(project));
         when(productBackLogRepository.save(any(ProductBackLog.class))).thenReturn(ProductBackLogMapper.mapToProductBackLog(productBackLog));
-        ProductBackLogDto createdPB = productBackLogService.addProductBackLog(productBackLog, 1L);
+        ProductBackLogDto createdPB = productBackLogService.addProductBackLog(productBackLog.getTitle(), 1L);
         assertNotNull(createdPB);
         assertEquals(productBackLog.getTitle(), createdPB.getTitle());
     }

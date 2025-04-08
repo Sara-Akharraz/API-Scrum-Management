@@ -1,4 +1,4 @@
-package com.apiscrum.APIScrum.Entity;
+package com.apiscrum.apiscrum.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -23,7 +23,7 @@ public class ProductBackLog {
     private String title;
     @OneToMany(mappedBy = "productBackLog", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Epic> epics;
-    @OneToMany(mappedBy="productBackLog")
+    @OneToMany(mappedBy="productBackLog",cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<UserStory> userStories;
     @ManyToOne

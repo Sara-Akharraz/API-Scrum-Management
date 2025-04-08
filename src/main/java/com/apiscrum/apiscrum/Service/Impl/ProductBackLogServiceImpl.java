@@ -1,19 +1,19 @@
-package com.apiscrum.APIScrum.Service.Impl;
+package com.apiscrum.apiscrum.Service.Impl;
 
-import com.apiscrum.APIScrum.Controller.ProductBackLogController;
-import com.apiscrum.APIScrum.DTO.ProductBackLogDto;
-import com.apiscrum.APIScrum.DTO.UserStoryDto;
-import com.apiscrum.APIScrum.Entity.*;
-import com.apiscrum.APIScrum.Entity.UserStory;
-import com.apiscrum.APIScrum.Mapper.ProductBackLogMapper;
-import com.apiscrum.APIScrum.Mapper.ProjectMapper;
-import com.apiscrum.APIScrum.Mapper.UserStoryMapper;
-import com.apiscrum.APIScrum.Repository.EpicRepository;
-import com.apiscrum.APIScrum.Repository.ProductBackLogRepository;
-import com.apiscrum.APIScrum.Repository.ProjectRepository;
-import com.apiscrum.APIScrum.Repository.UserStoryRepository;
-import com.apiscrum.APIScrum.Service.ProductBackLogService;
-import com.apiscrum.APIScrum.Service.UserStoryService;
+import com.apiscrum.apiscrum.Controller.ProductBackLogController;
+import com.apiscrum.apiscrum.DTO.ProductBackLogDto;
+import com.apiscrum.apiscrum.DTO.UserStoryDto;
+import com.apiscrum.apiscrum.Entity.*;
+import com.apiscrum.apiscrum.Entity.UserStory;
+import com.apiscrum.apiscrum.Mapper.ProductBackLogMapper;
+import com.apiscrum.apiscrum.Mapper.ProjectMapper;
+import com.apiscrum.apiscrum.Mapper.UserStoryMapper;
+import com.apiscrum.apiscrum.Repository.EpicRepository;
+import com.apiscrum.apiscrum.Repository.ProductBackLogRepository;
+import com.apiscrum.apiscrum.Repository.ProjectRepository;
+import com.apiscrum.apiscrum.Repository.UserStoryRepository;
+import com.apiscrum.apiscrum.Service.ProductBackLogService;
+import com.apiscrum.apiscrum.Service.UserStoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,11 +37,11 @@ public class ProductBackLogServiceImpl implements ProductBackLogService {
         Project project = projectRepository.findById(id_project)
                 .orElseThrow(() -> new RuntimeException("Project not found with id: " + id_project));
         ProductBackLog productBackLog = ProductBackLog.builder().title(title).project(project).build();
-        projectRepository.save(project);
+        project.setProductBackLog(productBackLog);
         productBackLogRepository.save(productBackLog);
-        return ProductBackLogMapper.mapToProductBackLogDTO(productBackLogRepository.save(
-                productBackLog)
-        );
+        projectRepository.save(project);
+        return ProductBackLogMapper.mapToProductBackLogDTO(productBackLog);
+
     }
 
     @Override
