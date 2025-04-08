@@ -78,7 +78,7 @@ public class SecurityConfig {
                         .hasAnyAuthority(Role.SCRUM_MANAGER.name())
 
                         // Product Manager: user stories, product backlogs, epics, projects
-                        .requestMatchers(HttpMethod.GET, "/api/userstories/**", "/api/productbacklogs/**", "/api/epics/**", "/api/projects/**","/api/acceptance_tests/**")
+                        .requestMatchers(HttpMethod.GET, "/api/userStory/**", "/api/productBacklog/**", "/api/epic/**", "/api/project/**","/api/acceptance_tests/**")
                         .hasAuthority(Role.PRODUCT_OWNER.name())
 
 
