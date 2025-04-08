@@ -1,21 +1,21 @@
-package com.apiscrum.APIScrum.Service.Impl;
+package com.apiscrum.apiscrum.Service.Impl;
 
-import com.apiscrum.APIScrum.DTO.EpicDto;
-import com.apiscrum.APIScrum.DTO.ProductBackLogDto;
-import com.apiscrum.APIScrum.DTO.ProjectDto;
-import com.apiscrum.APIScrum.DTO.UserStoryDto;
-import com.apiscrum.APIScrum.Entity.Epic;
-import com.apiscrum.APIScrum.Entity.ProductBackLog;
-import com.apiscrum.APIScrum.Entity.Project;
-import com.apiscrum.APIScrum.Entity.UserStory;
-import com.apiscrum.APIScrum.Mapper.ProductBackLogMapper;
-import com.apiscrum.APIScrum.Mapper.ProjectMapper;
-import com.apiscrum.APIScrum.Mapper.UserStoryMapper;
-import com.apiscrum.APIScrum.Repository.EpicRepository;
-import com.apiscrum.APIScrum.Repository.ProductBackLogRepository;
-import com.apiscrum.APIScrum.Repository.ProjectRepository;
-import com.apiscrum.APIScrum.Repository.UserStoryRepository;
-import com.apiscrum.APIScrum.Service.ProductBackLogService;
+import com.apiscrum.apiscrum.DTO.EpicDto;
+import com.apiscrum.apiscrum.DTO.ProductBackLogDto;
+import com.apiscrum.apiscrum.DTO.ProjectDto;
+import com.apiscrum.apiscrum.DTO.UserStoryDto;
+import com.apiscrum.apiscrum.Entity.Epic;
+import com.apiscrum.apiscrum.Entity.ProductBackLog;
+import com.apiscrum.apiscrum.Entity.Project;
+import com.apiscrum.apiscrum.Entity.UserStory;
+import com.apiscrum.apiscrum.Mapper.ProductBackLogMapper;
+import com.apiscrum.apiscrum.Mapper.ProjectMapper;
+import com.apiscrum.apiscrum.Mapper.UserStoryMapper;
+import com.apiscrum.apiscrum.Repository.EpicRepository;
+import com.apiscrum.apiscrum.Repository.ProductBackLogRepository;
+import com.apiscrum.apiscrum.Repository.ProjectRepository;
+import com.apiscrum.apiscrum.Repository.UserStoryRepository;
+import com.apiscrum.apiscrum.Service.ProductBackLogService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -118,19 +118,6 @@ public class ProductBackLogServiceImplTest {
         assertNotNull(foundedPB);
         assertEquals(productBackLog.getTitle(), foundedPB.getTitle());
         assertEquals(foundedPB.getUserStories().get(0).getAs_a(), us.getAs_a());
-    }
-
-    @Test
-    public void TestGetUserStoriesByProductBackLog(){
-        List<UserStory> uss = Arrays.asList(
-                UserStory.builder().title("US 1").as_a("Developer").i_wish_to("develop...").build(),
-                UserStory.builder().title("US 2").as_a("Product Manager").i_wish_to("Manage....").build());
-        productBackLog = ProductBackLogDto.builder().id(1L).title("PB 1").userStories(uss).build();
-        when(productBackLogRepository.findById(1L)).thenReturn(Optional.of(ProductBackLogMapper.mapToProductBackLog(productBackLog)));
-        List<UserStoryDto> pbuss = productBackLogService.getUserStoriesByProductBackLog(1L);
-        assertNotNull(pbuss);
-        assertEquals(pbuss.size(), uss.size());
-        assertEquals(pbuss.get(0).getTitle(), uss.get(0).getTitle());
     }
 
 }

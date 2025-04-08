@@ -1,7 +1,7 @@
-package com.apiscrum.APIScrum.Mapper;
+package com.apiscrum.apiscrum.Mapper;
 
-import com.apiscrum.APIScrum.DTO.ProjectDto;
-import com.apiscrum.APIScrum.Entity.Project;
+import com.apiscrum.apiscrum.DTO.ProjectDto;
+import com.apiscrum.apiscrum.Entity.Project;
 
 public class ProjectMapper {
     public static ProjectDto mapToProjectDTO(Project project) {

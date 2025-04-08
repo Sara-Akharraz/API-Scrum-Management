@@ -1,9 +1,8 @@
-package com.apiscrum.APIScrum.DTO;
+package com.apiscrum.apiscrum.DTO;
 
-import com.apiscrum.APIScrum.Entity.Epic;
-import com.apiscrum.APIScrum.Entity.Project;
-import com.apiscrum.APIScrum.Entity.UserStory;
-import jakarta.persistence.*;
+import com.apiscrum.apiscrum.Entity.Epic;
+import com.apiscrum.apiscrum.Entity.Project;
+import com.apiscrum.apiscrum.Entity.UserStory;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
