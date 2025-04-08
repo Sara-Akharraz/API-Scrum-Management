@@ -119,5 +119,16 @@ public class ProductBackLogServiceImplTest {
         assertEquals(productBackLog.getTitle(), foundedPB.getTitle());
         assertEquals(foundedPB.getUserStories().get(0).getAs_a(), us.getAs_a());
     }
-
+    @Test
+    public void TestGetUserStoriesByProductBackLog(){
+        List<UserStory> uss = Arrays.asList(
+                UserStory.builder().title("US 1").as_a("Developer").i_wish_to("develop...").build(),
+                UserStory.builder().title("US 2").as_a("Product Manager").i_wish_to("Manage....").build());
+        productBackLog = ProductBackLogDto.builder().id(1L).title("PB 1").userStories(uss).build();
+        when(productBackLogRepository.findById(1L)).thenReturn(Optional.of(ProductBackLogMapper.mapToProductBackLog(productBackLog)));
+        List<UserStoryDto> pbuss = productBackLogService.getUserStoriesByProductBackLog(1L);
+        assertNotNull(pbuss);
+        assertEquals(pbuss.size(), uss.size());
+        assertEquals(pbuss.get(0).getTitle(), uss.get(0).getTitle());
+    }
 }
