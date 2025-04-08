@@ -1,7 +1,7 @@
-package com.apiscrum.APIScrum.Service;
+package com.apiscrum.apiscrum.Service;
 
-import com.apiscrum.APIScrum.DTO.ProjectDto;
-import com.apiscrum.APIScrum.Entity.Project;
+import com.apiscrum.apiscrum.DTO.ProjectDto;
+import com.apiscrum.apiscrum.Entity.Project;
 
 import java.util.List;
 import java.util.Optional;

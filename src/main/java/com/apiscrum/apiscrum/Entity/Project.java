@@ -24,7 +24,7 @@ public class Project {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_backLog", nullable = true)
     private ProductBackLog productBackLog;
-    @OneToMany(mappedBy = "associatedProject")
+    @OneToMany(mappedBy = "associatedProject",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Sprint> sprints;
 
 }
