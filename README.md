@@ -34,7 +34,7 @@ The API Scrum Management system allows you to manage Scrum projects, epics, user
 ### Prerequisites
 
 Before you begin, ensure you have the following installed:
-- [JDK 17 or later](https://adoptopenjdk.net/)
+- [JDK 17 or later](https://adoptium.net/)
 - [Maven](https://maven.apache.org/)
 
 
