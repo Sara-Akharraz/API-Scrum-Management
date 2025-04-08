@@ -1,11 +1,11 @@
-package com.apiscrum.APIScrum.Service;
+package com.apiscrum.apiscrum.Service;
 
-import com.apiscrum.APIScrum.DTO.EpicDto;
-import com.apiscrum.APIScrum.DTO.UserStoryDto;
-import com.apiscrum.APIScrum.Entity.Epic;
-import com.apiscrum.APIScrum.Entity.ProductBackLog;
-import com.apiscrum.APIScrum.Entity.UserStory;
-import com.apiscrum.APIScrum.Mapper.UserStoryMapper;
+import com.apiscrum.apiscrum.DTO.EpicDto;
+import com.apiscrum.apiscrum.DTO.UserStoryDto;
+import com.apiscrum.apiscrum.Entity.Epic;
+import com.apiscrum.apiscrum.Entity.ProductBackLog;
+import com.apiscrum.apiscrum.Entity.UserStory;
+import com.apiscrum.apiscrum.Mapper.UserStoryMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +13,7 @@ import java.util.List;
 public interface EpicService {
     public EpicDto addEpic(EpicDto epic, Long id_pb);
     public EpicDto getEpic(Long id);
+    public EpicDto updateEpic(EpicDto epic, Long id);
     public void deleteEpic(Long id);
 //    public void addUserStrotyToEpic(Long id_e, UserStory userStory);
     public List<UserStoryDto> getUserEpicStories(Long id);
