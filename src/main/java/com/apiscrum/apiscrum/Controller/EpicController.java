@@ -1,12 +1,12 @@
-package com.apiscrum.APIScrum.Controller;
+package com.apiscrum.apiscrum.Controller;
 
-import com.apiscrum.APIScrum.DTO.EpicDto;
-import com.apiscrum.APIScrum.DTO.ProductBackLogDto;
-import com.apiscrum.APIScrum.DTO.UserStoryDto;
-import com.apiscrum.APIScrum.Entity.Epic;
-import com.apiscrum.APIScrum.Entity.ProductBackLog;
-import com.apiscrum.APIScrum.Entity.UserStory;
-import com.apiscrum.APIScrum.Service.EpicService;
+import com.apiscrum.apiscrum.DTO.EpicDto;
+import com.apiscrum.apiscrum.DTO.ProductBackLogDto;
+import com.apiscrum.apiscrum.DTO.UserStoryDto;
+import com.apiscrum.apiscrum.Entity.Epic;
+import com.apiscrum.apiscrum.Entity.ProductBackLog;
+import com.apiscrum.apiscrum.Entity.UserStory;
+import com.apiscrum.apiscrum.Service.EpicService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +14,7 @@ import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,7 @@ public class EpicController {
     private EpicService epicService;
 
     @GetMapping
+    @PreAuthorize("hasRole('PRODUCT_OWNER')")
     public ResponseEntity<?> getEpics() {
         try {
             List<EpicDto> epics = epicService.getEpics();
@@ -38,6 +40,7 @@ public class EpicController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('PRODUCT_OWNER')")
     public ResponseEntity<?> getEpic(@PathVariable("id") Long epicId) {
         try{
             return ResponseEntity.ok(epicService.getEpic(epicId));
@@ -47,6 +50,7 @@ public class EpicController {
     }
 
     @PostMapping("/addUserStory/{id}")
+    @PreAuthorize("hasRole('PRODUCT_OWNER')")
     public ResponseEntity<?> addUserStoryToEpic(@PathVariable("id") Long id, @Valid @RequestBody UserStoryDto userStoryDto) {
         try{
             return ResponseEntity.ok(epicService.addUserStoryToEpic(userStoryDto,id));
@@ -56,6 +60,7 @@ public class EpicController {
     }
 
     @PostMapping("/{id_pb}")
+    @PreAuthorize("hasRole('PRODUCT_OWNER')")
     public ResponseEntity<?> addEpic(@Valid @RequestBody EpicDto epic, @PathVariable Long id_pb ) {
         try{
             return ResponseEntity.ok(epicService.addEpic(epic, id_pb));
@@ -65,6 +70,7 @@ public class EpicController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('PRODUCT_OWNER')")
     public ResponseEntity<String> deleteEpic(@PathVariable Long id) {
         try {
             epicService.deleteEpic(id);
@@ -76,6 +82,7 @@ public class EpicController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('PRODUCT_OWNER')")
     public ResponseEntity<?> updateEpic(@RequestBody EpicDto epic, @PathVariable("id") Long id) {
         try{
             return ResponseEntity.ok(epicService.updateEpic(epic,id));
@@ -84,6 +91,7 @@ public class EpicController {
         }
     }
     @GetMapping("/getUserStories/{id}")
+    @PreAuthorize("hasRole('PRODUCT_OWNER')")
     public ResponseEntity<?> getUserEpicStories(@PathVariable Long id){
         try{
         return ResponseEntity.ok(epicService.getUserEpicStories(id));

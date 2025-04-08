@@ -1,17 +1,17 @@
-package com.apiscrum.APIScrum.Service.Impl;
+package com.apiscrum.apiscrum.Service.Impl;
 
-import com.apiscrum.APIScrum.DTO.EpicDto;
-import com.apiscrum.APIScrum.DTO.UserStoryDto;
-import com.apiscrum.APIScrum.Entity.Epic;
-import com.apiscrum.APIScrum.Entity.ProductBackLog;
-import com.apiscrum.APIScrum.Entity.UserStory;
-import com.apiscrum.APIScrum.Mapper.EpicMapper;
-import com.apiscrum.APIScrum.Repository.EpicRepository;
-import com.apiscrum.APIScrum.Repository.ProductBackLogRepository;
-import com.apiscrum.APIScrum.Repository.UserStoryRepository;
-import com.apiscrum.APIScrum.Service.EpicService;
+import com.apiscrum.apiscrum.DTO.EpicDto;
+import com.apiscrum.apiscrum.DTO.UserStoryDto;
+import com.apiscrum.apiscrum.Entity.Epic;
+import com.apiscrum.apiscrum.Entity.ProductBackLog;
+import com.apiscrum.apiscrum.Entity.UserStory;
+import com.apiscrum.apiscrum.Mapper.EpicMapper;
+import com.apiscrum.apiscrum.Repository.EpicRepository;
+import com.apiscrum.apiscrum.Repository.ProductBackLogRepository;
+import com.apiscrum.apiscrum.Repository.UserStoryRepository;
+import com.apiscrum.apiscrum.Service.EpicService;
 import lombok.AllArgsConstructor;
-import com.apiscrum.APIScrum.Mapper.*;
+import com.apiscrum.apiscrum.Mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -92,6 +92,10 @@ public class EpicServiceImpl implements EpicService {
         Epic epic = epicRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Epic not found with id: " + id));
         userStory.setEpic(epic);
+        ProductBackLog productBackLog = epic.getProductBackLog();
+        if (productBackLog != null) {
+            userStory.setProductBackLog(productBackLog);
+        }
         userStoryRepository.save(UserStoryMapper.mapToUserStory(userStory));
         return EpicMapper.mapToEpicDTO(epic);
     }

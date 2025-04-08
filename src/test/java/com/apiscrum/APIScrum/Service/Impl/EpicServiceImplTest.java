@@ -1,15 +1,15 @@
-package com.apiscrum.APIScrum.Service.Impl;
+package com.apiscrum.apiscrum.Service.Impl;
 
-import com.apiscrum.APIScrum.DTO.EpicDto;
-import com.apiscrum.APIScrum.DTO.UserStoryDto;
-import com.apiscrum.APIScrum.Entity.Epic;
-import com.apiscrum.APIScrum.Entity.UserStory;
-import com.apiscrum.APIScrum.Mapper.EpicMapper;
-import com.apiscrum.APIScrum.Mapper.UserStoryMapper;
-import com.apiscrum.APIScrum.Repository.EpicRepository;
-import com.apiscrum.APIScrum.Entity.ProductBackLog;
-import com.apiscrum.APIScrum.Repository.ProductBackLogRepository;
-import com.apiscrum.APIScrum.Repository.UserStoryRepository;
+import com.apiscrum.apiscrum.DTO.EpicDto;
+import com.apiscrum.apiscrum.DTO.UserStoryDto;
+import com.apiscrum.apiscrum.Entity.Epic;
+import com.apiscrum.apiscrum.Entity.UserStory;
+import com.apiscrum.apiscrum.Mapper.EpicMapper;
+import com.apiscrum.apiscrum.Mapper.UserStoryMapper;
+import com.apiscrum.apiscrum.Repository.EpicRepository;
+import com.apiscrum.apiscrum.Entity.ProductBackLog;
+import com.apiscrum.apiscrum.Repository.ProductBackLogRepository;
+import com.apiscrum.apiscrum.Repository.UserStoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -131,7 +131,7 @@ public class EpicServiceImplTest {
     }
 
     @Test
-    public void tsetUpdateEpic(){
+    public void testUpdateEpic(){
         Epic epic = Epic.builder().id(1L).title("Epic 1").build();
         when(epicRepository.findById(1L)).thenReturn(Optional.of(epic));
         epic.setTitle("Epic updated");
